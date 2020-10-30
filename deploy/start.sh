@@ -242,6 +242,13 @@ function magento_varnish_config {
   magento config:set system/full_page_cache/caching_application 2
 }
 
+function magento_set_canonicaltags {
+   # Enable canonical tags for products/categories
+  echo "${blue}${bold}Enable canonical tags for products/categories${normal}"
+  magento config:set catalog/seo/category_canonical_tag 1
+  magento config:set catalog/seo/product_canonical_tag 1
+}
+
 function magento_set_mode {
   # Set Magento mode
   if [[ -n ${MAGENTO_MODE+x} ]]; then
@@ -342,6 +349,8 @@ magento_database_migration
 magento_redis_config
 # Configure Magento to flush varnish
 magento_varnish_config
+# Enable canonicaltags for products/categories
+magento_set_canonicaltags
 # Create admin user if not exists
 create_admin_user
 
